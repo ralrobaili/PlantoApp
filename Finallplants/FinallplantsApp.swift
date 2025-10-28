@@ -5,13 +5,13 @@
 //  Created by raghad alenezi on 06/05/1447 AH.
 //
 
-import SwiftUI
+//import SwiftUI
 
-@main
-struct FinallplantsApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
-}
+//main
+//struct FinallplantsApp: App {
+  //  var body: some Scene {
+    //    WindowGroup {
+      //      ContentView()
+        //}
+    //}
+//}
