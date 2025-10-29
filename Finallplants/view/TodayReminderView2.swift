@@ -28,7 +28,7 @@ struct TodayReminderView2: View {
             }
             .navigationDestination(isPresented: $showEditPlant) {
                 if let selectedPlant = selectedPlant {
-                    EditPlant(viewModel: viewModel, plant: selectedPlant)
+                    EditPlant(viewModel: _viewModel, plant: selectedPlant)
                         .environmentObject(viewModel)
                 }
             }

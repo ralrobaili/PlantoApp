@@ -79,7 +79,7 @@ struct MainView: View {
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView() // بدّل ContentView بالاسم الجديد
+            MainView()
         }
     }
 }

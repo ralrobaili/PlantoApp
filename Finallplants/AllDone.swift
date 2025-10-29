@@ -12,9 +12,10 @@ import SwiftUI
 struct AllDone: View {
     @StateObject private var viewModel = PlantViewModel()
     @State private var showingSetReminder = false
-    @State private var showingSheet = false
+   // @State private var showingSheet = false
     @State private var goToAllDone = false
     @State private var showAddPlant = false
+    @State private var goToTodayReminder = false
 
 
     var body: some View {
@@ -72,6 +73,10 @@ Text("All reminders Completed")
     .sheet(isPresented: $showAddPlant) {
         SetReminderCompactView(viewModel: viewModel)
 
+    }
+    .navigationBarBackButtonHidden(true)
+    .navigationDestination(isPresented: $goToTodayReminder) {
+        TodayReminderView()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
     .padding(.trailing, 40)

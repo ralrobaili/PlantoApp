@@ -10,7 +10,8 @@
 import SwiftUI
 
 struct EditPlant: View {
-    @ObservedObject var viewModel: PlantViewModel
+    // Use environment object so all views share the same ViewModel instance
+    @EnvironmentObject var viewModel: PlantViewModel
     var plant: Plant
     
     @Environment(\.dismiss) var dismiss
@@ -53,7 +54,7 @@ struct EditPlant: View {
                         
                         Spacer()
                         
-                        // ✅ زر الحفظ والتنقل
+                        // Save button
                         Button(action: {
                             var updatedPlant = plant
                             updatedPlant.name = plantName
@@ -63,7 +64,8 @@ struct EditPlant: View {
                             updatedPlant.waterAmount = selectedWaterAmount
                             
                             viewModel.updatePlant(updatedPlant)
-                            goToTodayReminder = true
+                            // dismiss back to previous screen
+                            dismiss()
                         }) {
                             Image(systemName: "checkmark")
                                 .font(.system(size: 20))
@@ -143,7 +145,7 @@ struct EditPlant: View {
                     .alert("Delete Plant", isPresented: $showDeleteAlert) {
                         Button("Delete", role: .destructive) {
                             viewModel.deletePlant(plant)
-                            goToTodayReminder = true
+                            dismiss()
                         }
                         Button("Cancel", role: .cancel) {}
                     } message: {
@@ -156,6 +158,7 @@ struct EditPlant: View {
             .navigationBarBackButtonHidden(true)
             .navigationDestination(isPresented: $goToTodayReminder) {
                 TodayReminderView()
+                    .environmentObject(viewModel)
             }
             .onAppear {
                 plantName = plant.name
@@ -192,7 +195,7 @@ struct EditPlant: View {
 
 #Preview {
     NavigationStack {
-        EditPlant(viewModel: PlantViewModel(),
-                  plant: Plant(name: "Pothos", room: "Bedroom", light: "Full Sun", wateringDays: "Every day", waterAmount: "20–50 ml"))
+        EditPlant(plant: Plant(name: "Pothos", room: "Bedroom", light: "Full Sun", wateringDays: "Every day", waterAmount: "20–50 ml"))
+            .environmentObject(PlantViewModel())
     }
 }

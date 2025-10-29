@@ -43,11 +43,14 @@ class PlantViewModel: ObservableObject {
         }
     }
     
-    // MARK: - CRUD
     func toggleCheck(for plant: Plant) {
         if let index = plants.firstIndex(of: plant) {
             plants[index].isChecked.toggle()
         }
+    }
+    
+    func deleteCheckedPlants() {
+        plants.removeAll { $0.isChecked }
     }
     
     func addPlant(_ plant: Plant) {
@@ -68,10 +71,7 @@ class PlantViewModel: ObservableObject {
         plants.removeAll()
     }
     
-    func deleteCheckedPlants() {
-        plants.removeAll { $0.isChecked }
-    }
-    
+ 
     // MARK: - Persistence
     private func savePlants() {
         if let encoded = try? JSONEncoder().encode(plants) {
